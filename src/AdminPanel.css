@@ -1,0 +1,73 @@
+* {
+    font-family: 'helvetica', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.appBar {
+    display: flex;
+    background-color: rgb(30, 179, 79);
+    height: 5rem;
+    width: 100vw;
+}
+
+.title {
+    display: flex;
+    color: white;
+    font-size: 30pt;
+    margin: auto;
+}
+
+.course-list {
+    display: flex;
+    flex-direction: column;
+    height: 20rem;
+    width: 40rem;
+}
+
+
+.courseBtn {
+    border: none;
+    font-size: 20px;
+    color: rgb(13, 92, 70);
+    background-color: transparent;
+    width: 20rem;
+}
+
+.lecture {
+    font-size: 17pt;
+    color: black;
+}
+
+.btnRow {
+    display: flex;
+    flex-direction: row;
+    margin: 16rem auto auto;
+}
+
+.addLectureTxt {
+    font-size: 14pt;
+}
+
+.addLectureBtn {
+    width: 18vw;
+    height: 8vh;
+    border-radius: 25px;
+    background-color: white;
+    border: 2px solid rgb(4, 220, 98);
+    transition: .2s ease-in-out;
+}
+
+.addLectureBtn:hover {
+    background: rgb(4, 220, 98);
+    color: white;
+}
+
+.addLectureBtn:hover:before {
+    left: 150px;
+    transition: .5s ease-in-out;
+}
