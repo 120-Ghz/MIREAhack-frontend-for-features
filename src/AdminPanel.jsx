@@ -6,6 +6,9 @@ export default function AdminPanel() {
   const [lectures, setLectures] = useState([]);
   const [courses, setCourses] = useState([]);
   const [coursesIndexes, setCoursesIndexes] = useState([]);
+  const [courseDialogInd, setCourseDialogInd] = useState(1);
+  let courseDialogStyles = ["addCourseDialogLeft", "addCourseDialogRight"];
+  let courseDialogClass = "";
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/courses", {
@@ -23,10 +26,27 @@ export default function AdminPanel() {
       });
   }, []);
   console.log(lectures, courses);
+
   let changeCourseIndex = (ind) => {
     let indexes = [...coursesIndexes];
     indexes[ind] = !coursesIndexes[ind];
     setCoursesIndexes(indexes);
+  };
+
+  let newCourse = () => {
+    if (courseDialogInd) {
+      setCourseDialogInd(0);
+    } else {
+      setCourseDialogInd(1);
+    }
+    courseDialogClass = courseDialogStyles[courseDialogInd];
+    setAddCourse(!addCourse);
+    console.log(
+      "newCourse function: ",
+      courseDialogClass,
+      courseDialogInd,
+      addCourse
+    );
   };
 
   return (
@@ -38,18 +58,26 @@ export default function AdminPanel() {
         {courses.map((course, id) => {
           return (
             <div className="courLecRow">
-              <button onClick={() => changeCourseIndex(id)}>
-                <div className="courseBtn">{course["coursename"]}</div>
+              <button
+                className="courseBtn"
+                onClick={() => changeCourseIndex(id)}
+              >
+                <div class="courseBtnTxt">{course["coursename"]}</div>
               </button>
               {coursesIndexes[id] ? (
-                lectures.map((lecture) => {
-                  return (
-                    <div className="column">
-                      {lectures[id]["courseId"] === course["courseId"]} ? (
-                      {lectures[id]["title"]}) : (<div />)
-                    </div>
-                  );
-                })
+                <div className="lecturesList">
+                  {lectures.map((lecture, num) => {
+                    return (
+                      <div>
+                        {lecture["courseId"] === course["courseId"] ? (
+                          <div className="lectureTitle">{lecture["title"]}</div>
+                        ) : (
+                          <div />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               ) : (
                 <div />
               )}
@@ -59,11 +87,9 @@ export default function AdminPanel() {
       </div>
 
       <div className="btnRow">
-        <button
-          className="addLectureBtn"
-          onClick={() => setAddCourse(!addCourse)}
-        >
+        <button className="addCourseBtn" onClick={() => newCourse()}>
           <div className="addLectureTxt">Добавить курс</div>
+          {addCourse ? <div className={courseDialogClass}></div> : <div />}
         </button>
         <button
           className="addLectureBtn"

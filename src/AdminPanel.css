@@ -2,6 +2,10 @@
     font-family: 'helvetica', sans-serif;
 }
 
+body {
+    margin: 0
+}
+
 .page {
     display: flex;
     flex-direction: column;
@@ -22,25 +26,42 @@
     margin: auto;
 }
 
+.courseListTxt {
+    font-size: 21pt;
+    margin-left: 12.5rem;
+    margin-top: 15px;
+}
+
 .course-list {
     display: flex;
     flex-direction: column;
     height: 20rem;
     width: 40rem;
+    margin-top: 15px;
+    margin-left: 3rem;
 }
 
 
 .courseBtn {
-    border: none;
-    font-size: 20px;
+    display: flex;
+    border: 2px solid #292875;
+    background-color: #e5e5eb; 
+    border-radius: 10px;
     color: rgb(13, 92, 70);
-    background-color: transparent;
-    width: 20rem;
+    width: 30rem;
+    height: 4rem;
+    margin-top: 5px;
+}
+
+.courseBtnTxt {
+    font-size: 19pt;
+    margin: auto;
 }
 
 .lecture {
     font-size: 17pt;
     color: black;
+    margin-top: 5px;
 }
 
 .btnRow {
@@ -60,6 +81,7 @@
     background-color: white;
     border: 2px solid rgb(4, 220, 98);
     transition: .2s ease-in-out;
+    margin-left: 20px;
 }
 
 .addLectureBtn:hover {
@@ -72,7 +94,95 @@
     transition: .5s ease-in-out;
 }
 
+.addCourseBtn {
+    width: 18vw;
+    height: 8vh;
+    border-radius: 25px;
+    background-color: white;
+    border: 2px solid rgb(4, 220, 98);
+    transition: .2s ease-in-out;
+    margin-right: 20px;
+}
+
+.addCourseBtn:hover {
+    background: rgb(4, 220, 98);
+    color: white;
+}
+
+.addCourseBtn:hover:before {
+    left: 150px;
+    transition: .5s ease-in-out;
+}
+
 .courLecRow {
     display: flex;
     flex-direction: row;
+}
+
+.lecturesList {
+    display: flex;
+    flex-direction: row;
+    margin-left: 3rem;
+    margin-top: 1rem;
+}
+
+.lectureTitle {
+    margin-left: 5px;
+    font-size: 15pt;
+}
+
+/* .addCourseDialogLeft {
+    display: flex;
+    position: absolute;
+    transition: 0.4s;
+    background-color: rgb(140, 231, 110);
+    margin-left: -.36em;
+    width: 40rem;
+    height: 100vh;
+    right: 0;
+    opacity: 1;
+} */
+
+.addCourseDialogLeft {
+    display: flex;
+    position: absolute;
+    transition: 0.4s;
+    background-color: rgb(140, 231, 110);
+    margin-left: -.36em;
+    width: 40rem;
+    height: 100vh;
+    animation: slideLeft 1s;
+}
+
+.addCourseDialogRight {
+    display: flex;
+    position: absolute;
+    transition: 0.4s;
+    background-color: rgb(140, 231, 110);
+    width: 40rem;
+    height: 100vh;
+    animation: slideRight 1s;
+    opacity: 0;
+}
+
+
+@keyframes slideRight {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -40rem;
+    }
+}
+
+@keyframes slideLeft {
+
+    from {
+        right: -40rem;
+    }
+
+    to {
+        right: 0;
+    }
 }
