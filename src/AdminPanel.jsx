@@ -17,7 +17,7 @@ export default function AdminPanel() {
 
   useEffect(() => {
       fetch("http://127.0.0.1:5000/courses", {
-          method: 'POST'
+          method: 'GET'
       })
       .then(response => response.json())
       .then(result => {
