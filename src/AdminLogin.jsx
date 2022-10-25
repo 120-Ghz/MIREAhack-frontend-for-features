@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 export default function AdminLogin() {
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
+    const [shouldLogin, setShouldLogin] = useState(false)
     const [cookies, setCookies] = useCookies()
     const navigate = useNavigate();
 
@@ -17,8 +19,9 @@ export default function AdminLogin() {
     }
 
     useEffect(() => {
-        if (cookies.access_token) {
-
+        if (cookies.access_token && cookies.access_token !== "undefined") {
+            navigate('/')
+            return;
         }
         let refresh_token = cookies.refresh_token
         if (refresh_token) {
@@ -35,13 +38,20 @@ export default function AdminLogin() {
             })
             .then(response => response.json())
             .then(result => {
+                if (result["status"] !== 200) {
+                    setError(result["message"])
+                    return;
+                }
                 let time = new Date()
                 time.setTime(time.getTime() + 30*60*1000)
+                console.log(result)
                 setCookies('access_token', result["access_token"], {expires: time})
                 setCookies('refresh_token', result['refresh_token'])
                 navigate('/')
             })
+            return;
         }
+        setShouldLogin(true)
     }, [])
 
     const formSubmit = (event) => {
@@ -58,6 +68,10 @@ export default function AdminLogin() {
         })
         .then(response => response.json())
         .then(result => {
+            if (result["status"] !== 200) {
+                setError(result["message"])
+                return;
+            }
             let time = new Date()
             time.setTime(time.getTime() + 30*60*1000)
             setCookies('access_token', result["access_token"], {expires: time})
@@ -67,7 +81,7 @@ export default function AdminLogin() {
         event.preventDefault()
     }
 
-    return (
+    return shouldLogin ? (
         <form onSubmit={formSubmit}>
             <div className="loginForm">
                 <label>Username : </label>
@@ -77,5 +91,5 @@ export default function AdminLogin() {
                 <button type="submit">Login</button>
             </div>
         </form>
-    )
+    ) : (<div />)
 }
