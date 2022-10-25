@@ -1,8 +1,10 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useCookies} from "react-cookie";
 
 export default function AdminLogin() {
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
+    const [cookies, setCookie] = useCookies()
 
     const passwordChanged = (event) => {
         setPassword(event.target.value)
@@ -11,6 +13,31 @@ export default function AdminLogin() {
     const loginChanged = (event) => {
         setLogin(event.target.value)
     }
+
+    useEffect(() => {
+        if (cookies.access_token) {
+
+        }
+        let refresh_token = cookies.refresh_token
+        if (refresh_token) {
+            fetch('http://127.0.0.1:5000/adminLogin', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "login": "",
+                    "password": "",
+                    "refresh_token": refresh_token
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                // set refresh and access tokens
+            })
+        }
+    }, [])
 
     const formSubmit = (event) => {
         fetch('http://127.0.0.1:5000/adminLogin', {
