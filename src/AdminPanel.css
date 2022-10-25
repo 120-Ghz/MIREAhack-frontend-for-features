@@ -2,7 +2,7 @@
     font-family: 'helvetica', sans-serif;
 }
 
-body {
+.page {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -70,4 +70,9 @@ body {
 .addLectureBtn:hover:before {
     left: 150px;
     transition: .5s ease-in-out;
+}
+
+.courLecRow {
+    display: flex;
+    flex-direction: row;
 }
