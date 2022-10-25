@@ -1,10 +1,12 @@
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
+import {useNavigate} from "react-router-dom";
 
 export default function AdminLogin() {
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
-    const [cookies, setCookie] = useCookies()
+    const [cookies, setCookies] = useCookies()
+    const navigate = useNavigate();
 
     const passwordChanged = (event) => {
         setPassword(event.target.value)
@@ -33,8 +35,11 @@ export default function AdminLogin() {
             })
             .then(response => response.json())
             .then(result => {
-                console.log(result)
-                // set refresh and access tokens
+                let time = new Date()
+                time.setTime(time.getTime() + 30*60*1000)
+                setCookies('access_token', result["access_token"], {expires: time})
+                setCookies('refresh_token', result['refresh_token'])
+                navigate('/')
             })
         }
     }, [])
@@ -53,7 +58,11 @@ export default function AdminLogin() {
         })
         .then(response => response.json())
         .then(result => {
-            console.log(result)
+            let time = new Date()
+            time.setTime(time.getTime() + 30*60*1000)
+            setCookies('access_token', result["access_token"], {expires: time})
+            setCookies('refresh_token', result['refresh_token'])
+            navigate('/')
         })
         event.preventDefault()
     }
