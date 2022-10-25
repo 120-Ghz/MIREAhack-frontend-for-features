@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 
 export default function AdminPanel() {
-  const [addLecture, setAddLecture] = useState(false);
-  const [addCourse, setAddCourse] = useState(false);
+  const [showDialog, setShowDialog] = useState([0, 0]);
   const [lectures, setLectures] = useState([]);
   const [courses, setCourses] = useState([]);
   const [coursesIndexes, setCoursesIndexes] = useState([]);
-  const [courseDialogInd, setCourseDialogInd] = useState(1);
-  let courseDialogStyles = ["addCourseDialogLeft", "addCourseDialogRight"];
-  let courseDialogClass = "";
+
+  let courseTitle = "";
+  let courseDescription = "";
+
+  let courseTitleInSelect = "";
+  let lectureTitle = "";
+  let lectureDescription = "";
+  let lectureDate = "";
+  let lectureStart = "";
+  let lectureEnd = "";
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/courses", {
@@ -25,7 +31,7 @@ export default function AdminPanel() {
         setCoursesIndexes(indexes);
       });
   }, []);
-  console.log(lectures, courses);
+  console.log(lectures);
 
   let changeCourseIndex = (ind) => {
     let indexes = [...coursesIndexes];
@@ -34,19 +40,19 @@ export default function AdminPanel() {
   };
 
   let newCourse = () => {
-    if (courseDialogInd) {
-      setCourseDialogInd(0);
-    } else {
-      setCourseDialogInd(1);
-    }
-    courseDialogClass = courseDialogStyles[courseDialogInd];
-    setAddCourse(!addCourse);
-    console.log(
-      "newCourse function: ",
-      courseDialogClass,
-      courseDialogInd,
-      addCourse
-    );
+    setShowDialog([!setShowDialog[0], 0]);
+  };
+
+  let newLecture = () => {
+    setShowDialog([0, !setShowDialog[1]]);
+  };
+
+  let back = () => {
+    setShowDialog([0, 0]);
+  };
+
+  let cutString = (string) => {
+    return string.length > 30 ? string.slice(0, 30) + "..." : string;
   };
 
   return (
@@ -54,6 +60,7 @@ export default function AdminPanel() {
       <div className="appBar">
         <h3 className="title">Admin tools</h3>
       </div>
+      <div className="courseListTxt">Список курсов</div>
       <div className="course-list">
         {courses.map((course, id) => {
           return (
@@ -89,15 +96,86 @@ export default function AdminPanel() {
       <div className="btnRow">
         <button className="addCourseBtn" onClick={() => newCourse()}>
           <div className="addLectureTxt">Добавить курс</div>
-          {addCourse ? <div className={courseDialogClass}></div> : <div />}
         </button>
-        <button
-          className="addLectureBtn"
-          onClick={() => setAddLecture(!addLecture)}
-        >
+        <button className="addLectureBtn" onClick={() => newLecture()}>
           <div className="addLectureTxt">Добавить лекцию</div>
         </button>
       </div>
+      {showDialog[0] ? (
+        <div className="addCourseDialog">
+          <div className="courseAddingTxt">Добавление курса</div>
+          <div className="inputs">
+            <div className="inputRow">
+              Название курса
+              <input className="inputCourseData"></input>
+            </div>
+            <div className="inputRow">
+              Описание курса
+              <input className="inputCourseData"></input>
+            </div>
+            <div className="dialogButtons">
+              <button onClick={() => back()} className="backBtn">
+                Отмена
+              </button>
+              <button className="confirmAdding">Добавить</button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div />
+      )}
+      {showDialog[1] ? (
+        <div className="addLectureDialog">
+          <div className="courseAddingTxt">Добавление лекции</div>
+          <div className="inputs">
+            <div className="inputRow">
+              Выберите курс
+              <select value={courseTitleInSelect} className="selectTitles">
+                {courses.map((course) => {
+                  return (
+                    <option value={course["coursename"]}>
+                      {cutString(course["coursename"])}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="inputRow">
+              Название лекции
+              <input className="inputCourseData"></input>
+            </div>
+            <div className="inputRow">
+              Описание лекции
+              <input className="inputCourseData"></input>
+            </div>
+            <div className="inputRow">
+              Дата лекции
+              <input
+                className="inputCourseData"
+                placeholder="ДД.ММ.ГГГГ"
+              ></input>
+            </div>
+            <div className="inputRow">
+              <div className="timeTxt">
+                <div>Время</div> <div>начала</div>
+              </div>
+              <input className="timeInput"></input>
+              <div className="timeTxt">
+                <div>Время</div> <div>окончания</div>
+              </div>
+              <input className="timeInput"></input>
+            </div>
+            <div className="dialogButtons">
+              <button onClick={() => back()} className="backBtn">
+                Отмена
+              </button>
+              <button className="confirmAdding">Добавить</button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div />
+      )}
     </div>
   );
 }

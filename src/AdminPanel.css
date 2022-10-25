@@ -7,6 +7,7 @@ body {
 }
 
 .page {
+    margin: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -87,6 +88,7 @@ body {
 .addLectureBtn:hover {
     background: rgb(4, 220, 98);
     color: white;
+    cursor: pointer;
 }
 
 .addLectureBtn:hover:before {
@@ -107,6 +109,7 @@ body {
 .addCourseBtn:hover {
     background: rgb(4, 220, 98);
     color: white;
+    cursor: pointer;
 }
 
 .addCourseBtn:hover:before {
@@ -131,58 +134,115 @@ body {
     font-size: 15pt;
 }
 
-/* .addCourseDialogLeft {
+.addCourseDialog {
     display: flex;
+    flex-direction: column;
     position: absolute;
     transition: 0.4s;
-    background-color: rgb(140, 231, 110);
-    margin-left: -.36em;
-    width: 40rem;
-    height: 100vh;
-    right: 0;
-    opacity: 1;
-} */
+    background-color: rgba(209, 223, 205);
+    right: 4rem;
+    top: 6rem;
+    width: 30rem;
+    height: 25rem;
+}
 
-.addCourseDialogLeft {
+.addLectureDialog {
     display: flex;
+    flex-direction: column;
     position: absolute;
     transition: 0.4s;
-    background-color: rgb(140, 231, 110);
-    margin-left: -.36em;
-    width: 40rem;
-    height: 100vh;
-    animation: slideLeft 1s;
+    background-color: rgba(209, 223, 205);
+    right: 4rem;
+    top: 6rem;
+    width: 30rem;
+    height: 35rem;
 }
-
-.addCourseDialogRight {
+.inputRow {
     display: flex;
-    position: absolute;
+    flex-direction: row;
+    margin-top: 30px
+}
+
+.inputCourseData {
+    width: 15rem;
+    height: 2rem;
+    margin-left: 20px;
+}
+
+.timeInput {
+    width: 7rem;
+    height: 2rem;
+    margin-left: 15px;
+}
+
+.timeTxt {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+.courseAddingTxt {
+    font-size: 20pt;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.confirmAdding {
+    display: inline;
+    margin-top: 3rem;
+    height: 3rem;
+    background-color: white;
+    width: 8rem;
+    border: none;
+    border-radius: 20px;
     transition: 0.4s;
-    background-color: rgb(140, 231, 110);
-    width: 40rem;
-    height: 100vh;
-    animation: slideRight 1s;
-    opacity: 0;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    margin-left: 20px;
 }
 
 
-@keyframes slideRight {
-    from {
-        right: 0;
-    }
-
-    to {
-        right: -40rem;
-    }
+.confirmAdding:hover {
+    box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+}
+.confirmAdding:active {
+    background-color: rgba(124, 214, 160, 0.4);
+    transition: 0.2s;
 }
 
-@keyframes slideLeft {
+.backBtn {
+    display: inline;
+    margin-top: 3rem;
+    height: 3rem;
+    background-color: white;
+    width: 8rem;
+    border: none;
+    border-radius: 20px;
+    transition: 0.4s;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    margin-right: 20px;
+}
 
-    from {
-        right: -40rem;
-    }
+.backBtn:hover {
+    box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+}
+.backBtn:active {
+    background-color: rgba(124, 214, 160, 0.4);
+    transition: 0.2s;
+}
 
-    to {
-        right: 0;
-    }
+.selectTitles {
+    margin-left: 15px;
+}
+
+.dialogButtons {
+    display: flex;
+    flex-direction: row;
 }
