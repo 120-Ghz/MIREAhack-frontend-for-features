@@ -20,6 +20,10 @@ body {
     width: 100vw;
 }
 
+.titleRow {
+    display: flex;
+    flex-direction: row;
+}
 .title {
     display: flex;
     color: white;
@@ -42,21 +46,33 @@ body {
     margin-left: 3rem;
 }
 
-
 .courseBtn {
     display: flex;
     border: 2px solid #292875;
-    background-color: #e5e5eb; 
+    background-color: #e5e5eb;
     border-radius: 10px;
-    color: rgb(13, 92, 70);
+    color: rgb(10, 145, 57);
     width: 30rem;
     height: 4rem;
     margin-top: 5px;
 }
 
+.courseBtn:hover {
+    cursor: pointer;
+    background-color: #b8b8d7;
+}
+
 .courseBtnTxt {
     font-size: 19pt;
     margin: auto;
+}
+
+.lecturesContainer {
+    width: 55rem;
+    height: 4rem;
+    display: flex;
+    position: absolute;
+    background-color: rgba(102, 229, 51, 0.2)
 }
 
 .lecture {
@@ -141,8 +157,8 @@ body {
     position: absolute;
     transition: 0.4s;
     background-color: rgba(209, 223, 205);
-    right: 4rem;
-    top: 6rem;
+    right: 2rem;
+    top: 10rem;
     width: 30rem;
     height: 25rem;
 }
@@ -153,11 +169,12 @@ body {
     position: absolute;
     transition: 0.4s;
     background-color: rgba(209, 223, 205);
-    right: 4rem;
-    top: 6rem;
+    right: 2rem;
+    top: 9rem;
     width: 30rem;
     height: 35rem;
 }
+
 .inputRow {
     display: flex;
     flex-direction: row;
@@ -181,6 +198,7 @@ body {
     flex-direction: column;
     margin-left: 15px;
 }
+
 .courseAddingTxt {
     font-size: 20pt;
     text-align: center;
@@ -212,6 +230,7 @@ body {
     box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.6);
     cursor: pointer;
 }
+
 .confirmAdding:active {
     background-color: rgba(124, 214, 160, 0.4);
     transition: 0.2s;
@@ -234,6 +253,7 @@ body {
     box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.6);
     cursor: pointer;
 }
+
 .backBtn:active {
     background-color: rgba(124, 214, 160, 0.4);
     transition: 0.2s;

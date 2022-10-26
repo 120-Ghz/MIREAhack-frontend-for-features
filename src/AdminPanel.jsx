@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import {useCookies} from "react-cookie";
-import {useNavigate} from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminPanel() {
   const [showDialog, setShowDialog] = useState([0, 0]);
   const [lectures, setLectures] = useState([]);
   const [courses, setCourses] = useState([]);
   const [coursesIndexes, setCoursesIndexes] = useState([]);
-  const [cookies, setCookies] = useCookies()
-    const navigate = useNavigate()
+  const [cookies, setCookies] = useCookies();
+  const navigate = useNavigate();
 
   useEffect(() => {
-      if (!cookies["access_token"] || cookies["access_token"] === "undefined") {
-          navigate('/login')
-      }
+    if (!cookies["access_token"] || cookies["access_token"] === "undefined") {
+      navigate("/login");
+    }
     fetch("http://127.0.0.1:5000/courses", {
       method: "GET",
     })
@@ -33,7 +33,7 @@ export default function AdminPanel() {
   let courseTitle = "";
   let courseDescription = "";
 
-  const [courseTitleInSelect, setCourseTitleOnSelect] = useState('')
+  const [courseTitleInSelect, setCourseTitleOnSelect] = useState("");
   let lectureTitle = "";
   let lectureDescription = "";
   let lectureDate = "";
@@ -67,7 +67,13 @@ export default function AdminPanel() {
       <div className="appBar">
         <h3 className="title">Admin tools</h3>
       </div>
-      <div className="courseListTxt">Список курсов</div>
+      <div className="titleRow">
+        <div className="courseListTxt">Список курсов</div>
+        <div className="courseListTxt">
+          Список лекций (нажмите на нужный курс)
+        </div>
+      </div>
+      
       <div className="course-list">
         {courses.map((course, id) => {
           return (
@@ -80,17 +86,21 @@ export default function AdminPanel() {
               </button>
               {coursesIndexes[id] ? (
                 <div className="lecturesList">
-                  {lectures.map((lecture, num) => {
-                    return (
-                      <div>
-                        {lecture["courseId"] === course["courseId"] ? (
-                          <div className="lectureTitle">{lecture["title"]}</div>
-                        ) : (
-                          <div />
-                        )}
-                      </div>
-                    );
-                  })}
+                  <div className="lecturesContainer {">
+                    {lectures.map((lecture, num) => {
+                      return (
+                        <div>
+                          {lecture["courseId"] === course["courseId"] ? (
+                            <div className="lectureTitle">
+                              {lecture["title"]}
+                            </div>
+                          ) : (
+                            <div />
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ) : (
                 <div />
@@ -118,7 +128,10 @@ export default function AdminPanel() {
             </div>
             <div className="inputRow">
               Описание курса
-              <input className="inputCourseData" value={courseDescription}></input>
+              <input
+                className="inputCourseData"
+                value={courseDescription}
+              ></input>
             </div>
             <div className="dialogButtons">
               <button onClick={() => back()} className="backBtn">
@@ -137,7 +150,11 @@ export default function AdminPanel() {
           <div className="inputs">
             <div className="inputRow">
               Выберите курс
-              <select value={courseTitleInSelect} onChange={() => setCourseTitleOnSelect()} className="selectTitles">
+              <select
+                value={courseTitleInSelect}
+                onChange={() => setCourseTitleOnSelect()}
+                className="selectTitles"
+              >
                 {courses.map((course) => {
                   return (
                     <option value={course["coursename"]}>
@@ -153,7 +170,10 @@ export default function AdminPanel() {
             </div>
             <div className="inputRow">
               Описание лекции
-              <input className="inputCourseData" value={lectureDescription}></input>
+              <input
+                className="inputCourseData"
+                value={lectureDescription}
+              ></input>
             </div>
             <div className="inputRow">
               Дата лекции
