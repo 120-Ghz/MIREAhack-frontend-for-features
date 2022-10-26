@@ -19,7 +19,7 @@ export default function AdminLogin() {
     }
 
     useEffect(() => {
-        if (cookies.access_token && cookies.access_token !== "undefined") {
+        if (cookies["access_token"] && cookies["access_token"] !== "undefined") {
             navigate('/')
             return;
         }
