@@ -113,11 +113,11 @@ export default function AdminPanel() {
                     <div className="inputs">
                         <div className="inputRow">
                             Название курса
-                            <input className="inputCourseData" value={courseTitle}></input>
+                            <input className="inputCourseData" value={courseTitle} onChange={e => setCourseTitle(e.target.value)}></input>
                         </div>
                         <div className="inputRow">
                             Описание курса
-                            <input className="inputCourseData" value={courseDescription}></input>
+                            <input className="inputCourseData" value={courseDescription} onChange={e => setCourseDescription(e.target.value)}></input>
                         </div>
                         <div className="dialogButtons">
                             <button onClick={() => back()} className="backBtn">
