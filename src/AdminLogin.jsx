@@ -36,19 +36,19 @@ export default function AdminLogin() {
                     "refresh_token": refresh_token
                 })
             })
-            .then(response => response.json())
-            .then(result => {
-                if (result["status"] !== 200) {
-                    setError(result["message"])
-                    return;
-                }
-                let time = new Date()
-                time.setTime(time.getTime() + 30*60*1000)
-                console.log(result)
-                setCookies('access_token', result["access_token"], {expires: time})
-                setCookies('refresh_token', result['refresh_token'])
-                navigate('/')
-            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result["status"] !== 200) {
+                        setError(result["message"])
+                        return;
+                    }
+                    let time = new Date()
+                    time.setTime(time.getTime() + 30 * 60 * 1000)
+                    console.log(result)
+                    setCookies('access_token', result["access_token"], {expires: time})
+                    setCookies('refresh_token', result['refresh_token'])
+                    navigate('/')
+                })
             return;
         }
         setShouldLogin(true)
@@ -66,30 +66,36 @@ export default function AdminLogin() {
                 "refresh_token": ""
             })
         })
-        .then(response => response.json())
-        .then(result => {
-            if (result["status"] !== 200) {
-                setError(result["message"])
-                return;
-            }
-            let time = new Date()
-            time.setTime(time.getTime() + 30*60*1000)
-            setCookies('access_token', result["access_token"], {expires: time})
-            setCookies('refresh_token', result['refresh_token'])
-            navigate('/')
-        })
+            .then(response => response.json())
+            .then(result => {
+                if (result["status"] !== 200) {
+                    setError(result["message"])
+                    return;
+                }
+                let time = new Date()
+                time.setTime(time.getTime() + 30 * 60 * 1000)
+                setCookies('access_token', result["access_token"], {expires: time})
+                setCookies('refresh_token', result['refresh_token'])
+                navigate('/')
+            })
         event.preventDefault()
     }
 
     return shouldLogin ? (
-        <form onSubmit={formSubmit}>
-            <div className="loginForm">
-                <label>Username : </label>
-                <input type="text" value={login} onChange={loginChanged} placeholder="Enter Username"/>
-                <label>Password : </label>
-                <input type="password" value={password} onChange={passwordChanged} placeholder="Enter Password"/>
-                <button type="submit">Login</button>
-            </div>
-        </form>
-    ) : (<div />)
+        <div>
+            <form onSubmit={formSubmit}>
+                <div className="loginForm">
+                    <label>Username : </label>
+                    <input type="text" value={login} onChange={loginChanged} placeholder="Enter Username"/>
+                    <label>Password : </label>
+                    <input type="password" value={password} onChange={passwordChanged} placeholder="Enter Password"/>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+            {error !== "" &&
+            (<div>
+                error
+            </div>)}
+        </div>
+    ) : (<div/>)
 }
