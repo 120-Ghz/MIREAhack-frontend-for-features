@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
+import './AdminLogin.css'
 
 export default function AdminLogin() {
     const [login, setLogin] = useState("")
@@ -26,6 +27,7 @@ export default function AdminLogin() {
         let refresh_token = cookies.refresh_token
         if (refresh_token) {
             fetch('http://127.0.0.1:5000/adminLogin', {
+                mode: 'cors',
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'
@@ -83,13 +85,13 @@ export default function AdminLogin() {
 
     return shouldLogin ? (
         <div>
-            <form onSubmit={formSubmit}>
+            <form onSubmit={formSubmit} className="container_form">
                 <div className="loginForm">
                     <label>Username : </label>
-                    <input type="text" value={login} onChange={loginChanged} placeholder="Enter Username"/>
+                    <input type="text" value={login} onChange={loginChanged} placeholder="Enter Username" className="input_form"/>
                     <label>Password : </label>
-                    <input type="password" value={password} onChange={passwordChanged} placeholder="Enter Password"/>
-                    <button type="submit">Login</button>
+                    <input type="password" value={password} onChange={passwordChanged} placeholder="Enter Password" className="input_form"/>
+                    <button type="submit" className="form_submit_button">Login</button>
                 </div>
             </form>
             {error !== "" &&
