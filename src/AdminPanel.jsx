@@ -15,7 +15,6 @@ export default function AdminPanel() {
     const [lectureDate, setLectureDate] = useState("");
     const [lectureStart, setLectureStart] = useState("");
     const [lectureEnd, setLectureEnd] = useState("");
-
     const [cookies, setCookies] = useCookies()
     const navigate = useNavigate()
 
@@ -74,7 +73,7 @@ export default function AdminPanel() {
           Список лекций (нажмите на нужный курс)
         </div>
       </div>
-      
+      <div class="line"></div>
       <div className="course-list">
         {courses.map((course, id) => {
           return (
@@ -93,7 +92,7 @@ export default function AdminPanel() {
                         <div>
                           {lecture["courseId"] === course["courseId"] ? (
                             <div className="lectureTitle">
-                              {lecture["title"]}
+                              {lecture["title"]};
                             </div>
                           ) : (
                             <div />

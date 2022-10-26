@@ -24,11 +24,20 @@ body {
     display: flex;
     flex-direction: row;
 }
+
 .title {
     display: flex;
     color: white;
     font-size: 30pt;
     margin: auto;
+}
+
+.line {
+    margin: auto;
+    margin-top: 10px;
+    width: 90rem;
+    border-bottom: 1px solid rgb(8, 100, 63);
+
 }
 
 .courseListTxt {
@@ -51,7 +60,7 @@ body {
     border: 2px solid #292875;
     background-color: #e5e5eb;
     border-radius: 10px;
-    color: rgb(10, 145, 57);
+    color: rgb(33, 137, 69);
     width: 30rem;
     height: 4rem;
     margin-top: 5px;
@@ -59,7 +68,11 @@ body {
 
 .courseBtn:hover {
     cursor: pointer;
-    background-color: #b8b8d7;
+    background-color: rgba(132, 215, 168, 0.5);
+}
+
+.courseBtn:active {
+    border: 3px solid #1e8831;
 }
 
 .courseBtnTxt {
@@ -79,6 +92,7 @@ body {
     font-size: 17pt;
     color: black;
     margin-top: 5px;
+    margin-left: 5px;
 }
 
 .btnRow {
@@ -96,8 +110,8 @@ body {
     height: 8vh;
     border-radius: 25px;
     background-color: white;
-    border: 2px solid rgb(4, 220, 98);
-    transition: .2s ease-in-out;
+    border: 2px solid rgba(4, 220, 98, 0.8);
+    transition: .1s ease-in-out;
     margin-left: 20px;
 }
 
@@ -112,13 +126,17 @@ body {
     transition: .5s ease-in-out;
 }
 
+.addLectureBtn:active {
+    border: 3px solid rgb(4, 137, 44);
+}
+
 .addCourseBtn {
     width: 18vw;
     height: 8vh;
     border-radius: 25px;
     background-color: white;
-    border: 2px solid rgb(4, 220, 98);
-    transition: .2s ease-in-out;
+    border: 2px solid rgba(4, 220, 98, 0.8);
+    transition: .1s ease-in-out;
     margin-right: 20px;
 }
 
@@ -131,6 +149,10 @@ body {
 .addCourseBtn:hover:before {
     left: 150px;
     transition: .5s ease-in-out;
+}
+
+.addCourseBtn:active {
+    border: 3px solid rgb(4, 137, 44);
 }
 
 .courLecRow {
