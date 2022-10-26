@@ -38,27 +38,70 @@ export default function AdminPanel() {
     }, []);
     console.log(lectures);
 
-    let changeCourseIndex = (ind) => {
+    const changeCourseIndex = (ind) => {
         let indexes = [...coursesIndexes];
         indexes[ind] = !coursesIndexes[ind];
         setCoursesIndexes(indexes);
     };
 
-    let newCourse = () => {
+    const newCourse = () => {
         setShowDialog([!setShowDialog[0], 0]);
     };
 
-    let newLecture = () => {
+    const newLecture = () => {
         setShowDialog([0, !setShowDialog[1]]);
     };
 
-    let back = () => {
+    const back = () => {
         setShowDialog([0, 0]);
     };
 
-    let cutString = (string) => {
+    const cutString = (string) => {
         return string.length > 30 ? string.slice(0, 30) + "..." : string;
     };
+
+    const addLecture = () => {
+        fetch("http://127.0.0.1:5000/addLecture", {
+            method: "POST",
+            body: JSON.stringify({
+                "title": lectureTitle,
+                "description": lectureDescription,
+                "start": lectureStart,
+                "end": lectureEnd,
+                "courseTitle": courseTitleInSelect
+            })
+        })
+        .then(response => response.json())
+        .then((result) => {
+            setLectures(result.lectures);
+            setCourses(result.courses);
+            let indexes = [];
+            for (let i = 0; i < result.courses.length; i++) {
+                indexes[i] = 0;
+            }
+            setCoursesIndexes(indexes);
+        });
+    }
+
+    const addCourse = () => {
+        fetch("http://127.0.0.1:5000/addCourse", {
+            method: "POST",
+            body: JSON.stringify({
+                "title": courseTitle,
+                "description": courseDescription
+            })
+        })
+        .then(response => response.json())
+        .then((result) => {
+            setLectures(result.lectures);
+            setCourses(result.courses);
+            let indexes = [];
+            for (let i = 0; i < result.courses.length; i++) {
+                indexes[i] = 0;
+            }
+            setCoursesIndexes(indexes);
+        });
+    }
 
  
 
@@ -135,7 +178,7 @@ export default function AdminPanel() {
                             <button onClick={() => back()} className="backBtn">
                                 Отмена
                             </button>
-                            <button className="confirmAdding">Добавить</button>
+                            <button className="confirmAdding" onClick={addCourse}>Добавить</button>
                         </div>
                     </div>
                 </div>
@@ -192,7 +235,7 @@ export default function AdminPanel() {
                             <button onClick={() => back()} className="backBtn">
                                 Отмена
                             </button>
-                            <button className="confirmAdding">Добавить</button>
+                            <button className="confirmAdding" onClick={addLecture}>Добавить</button>
                         </div>
                     </div>
                 </div>
