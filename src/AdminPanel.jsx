@@ -6,16 +6,6 @@ export default function AdminPanel() {
   const [courses, setCourses] = useState([]);
   const [coursesIndexes, setCoursesIndexes] = useState([]);
 
-  let courseTitle = "";
-  let courseDescription = "";
-
-  let courseTitleInSelect = "";
-  let lectureTitle = "";
-  let lectureDescription = "";
-  let lectureDate = "";
-  let lectureStart = "";
-  let lectureEnd = "";
-
   useEffect(() => {
     fetch("http://127.0.0.1:5000/courses", {
       method: "GET",
@@ -32,6 +22,16 @@ export default function AdminPanel() {
       });
   }, []);
   console.log(lectures);
+
+  let courseTitle = "";
+  let courseDescription = "";
+
+  const [courseTitleInSelect, setCourseTitleOnSelect] = useState('')
+  let lectureTitle = "";
+  let lectureDescription = "";
+  let lectureDate = "";
+  let lectureStart = "";
+  let lectureEnd = "";
 
   let changeCourseIndex = (ind) => {
     let indexes = [...coursesIndexes];
@@ -107,11 +107,11 @@ export default function AdminPanel() {
           <div className="inputs">
             <div className="inputRow">
               Название курса
-              <input className="inputCourseData"></input>
+              <input className="inputCourseData" value={courseTitle}></input>
             </div>
             <div className="inputRow">
               Описание курса
-              <input className="inputCourseData"></input>
+              <input className="inputCourseData" value={courseDescription}></input>
             </div>
             <div className="dialogButtons">
               <button onClick={() => back()} className="backBtn">
@@ -130,7 +130,7 @@ export default function AdminPanel() {
           <div className="inputs">
             <div className="inputRow">
               Выберите курс
-              <select value={courseTitleInSelect} className="selectTitles">
+              <select value={courseTitleInSelect} onChange={() => setCourseTitleOnSelect()} className="selectTitles">
                 {courses.map((course) => {
                   return (
                     <option value={course["coursename"]}>
@@ -142,28 +142,29 @@ export default function AdminPanel() {
             </div>
             <div className="inputRow">
               Название лекции
-              <input className="inputCourseData"></input>
+              <input className="inputCourseData" value={lectureTitle}></input>
             </div>
             <div className="inputRow">
               Описание лекции
-              <input className="inputCourseData"></input>
+              <input className="inputCourseData" value={lectureDescription}></input>
             </div>
             <div className="inputRow">
               Дата лекции
               <input
                 className="inputCourseData"
                 placeholder="ДД.ММ.ГГГГ"
+                value={lectureDate}
               ></input>
             </div>
             <div className="inputRow">
               <div className="timeTxt">
                 <div>Время</div> <div>начала</div>
               </div>
-              <input className="timeInput"></input>
+              <input className="timeInput" value={lectureStart}></input>
               <div className="timeTxt">
                 <div>Время</div> <div>окончания</div>
               </div>
-              <input className="timeInput"></input>
+              <input className="timeInput" value={lectureEnd}></input>
             </div>
             <div className="dialogButtons">
               <button onClick={() => back()} className="backBtn">

@@ -132,6 +132,7 @@ body {
 .lectureTitle {
     margin-left: 5px;
     font-size: 15pt;
+    position: absolute;
 }
 
 .addCourseDialog {
