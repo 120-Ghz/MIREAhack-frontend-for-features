@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
+import {useCookies} from "react-cookie";
+import {useNavigate} from "react-router-dom";
 
 export default function AdminPanel() {
   const [showDialog, setShowDialog] = useState([0, 0]);
   const [lectures, setLectures] = useState([]);
   const [courses, setCourses] = useState([]);
   const [coursesIndexes, setCoursesIndexes] = useState([]);
+  const [cookies, setCookies] = useCookies()
+    const navigate = useNavigate()
 
   useEffect(() => {
+      if (!cookies["access_token"] || cookies["access_token"] === "undefined") {
+          navigate('/login')
+      }
     fetch("http://127.0.0.1:5000/courses", {
       method: "GET",
     })
